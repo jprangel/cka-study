@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: back
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: back-httpd
+  name: back-httpd
+  namespace: back
+spec:
+  containers:
+  - image: httpd
+    name: back-httpd
+    ports:
+    - containerPort: 80
+    resources:
+      requests:
+        memory: 20Mi
+      limits:
+        memory: 20Mi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: back-nginx
+  name: back-nginx
+  namespace: back
+spec:
+  containers:
+  - image: nginx
+    name: back-nginx
+    ports:
+    - containerPort: 80
+    resources:
+      requests:
+        memory: 20Mi
+      limits:
+        memory: 20Mi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: back-hello
+  name: back-hello
+  namespace: back
+spec:
+  containers:
+  - image: gcr.io/google-samples/node-hello:1.0
+    name: back-hello
+    ports:
+    - containerPort: 8080
+    resources:
+      requests:
+        memory: 20Mi
+      limits:
+        memory: 20Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: back-httpd-svc
+  name: back-httpd-svc
+  namespace: back
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: back-httpd
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: back-nginx-svc
+  name: back-nginx-svc
+  namespace: back
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: back-nginx
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: back-hello-svc
+  name: back-hello-svc
+  namespace: back
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: back-hello
+  type: ClusterIP
