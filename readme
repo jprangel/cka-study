@@ -1,6 +1,12 @@
 CKA study - Network Policy
 
+Not gonna work:
+
 k exec -n front -it front-curl -- curl back-nginx-svc.back.svc.cluster.local:80
 k exec -n front -it front-curl -- curl back-httpd-svc.back.svc.cluster.local:80
 k exec -n front -it front-curl -- curl back-httpd-svc.back.svc.cluster.local:8080
 
+It will work:
+k exec -n front -it front-nginx -- curl back-nginx-svc.back.svc.cluster.local:80
+k exec -n front -it front-nginx -- curl back-httpd-svc.back.svc.cluster.local:80
+k exec -n front -it front-nginx -- curl back-httpd-svc.back.svc.cluster.local:8080
