@@ -8,6 +8,7 @@ kind: Pod
 metadata:
   labels:
     run: back-httpd
+    app: back
   name: back-httpd
   namespace: back
 spec:
@@ -27,6 +28,7 @@ kind: Pod
 metadata:
   labels:
     run: back-nginx
+    app: back
   name: back-nginx
   namespace: back
 spec:
@@ -46,6 +48,7 @@ kind: Pod
 metadata:
   labels:
     run: back-hello
+    app: back
   name: back-hello
   namespace: back
 spec:
