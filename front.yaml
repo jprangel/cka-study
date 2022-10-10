@@ -33,6 +33,7 @@ spec:
   containers:
   - image: curlimages/curl
     name: front-curl
+    command: ["sh", "-c", "sleep 1d"]
     resources:
       requests:
         memory: 20Mi
